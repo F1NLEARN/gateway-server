@@ -1,0 +1,58 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway-server
+  config:
+    import: optional:configserver:http://localhost:8888
+  cloud:
+    gateway:
+      mvc:
+        routes:
+          - id: user-service
+            uri: lb://user-service
+            predicates:
+              - Path=/api/users/**
+          - id: learning-service
+            uri: lb://learning-service
+            predicates:
+              - Path=/api/learning/**
+          - id: quiz-service
+            uri: lb://quiz-service
+            predicates:
+              - Path=/api/quiz/**
+          - id: simulation-service
+            uri: lb://simulation-service
+            predicates:
+              - Path=/api/simulation/**
+          - id: season-service
+            uri: lb://season-service
+            predicates:
+              - Path=/api/seasons/**
+          - id: achievement-service
+            uri: lb://achievement-service
+            predicates:
+              - Path=/api/achievements/**
+          - id: discovery-service
+            uri: lb://discovery-service
+            predicates:
+              - Path=/api/discovery/**
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,refresh
+  endpoint:
+    health:
+      show-details: always
