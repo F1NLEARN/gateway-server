@@ -13,7 +13,7 @@ spring:
           - id: user-service
             uri: lb://user-service
             predicates:
-              - Path=/api/users/**
+              - Path=/api/v1/users/**
           - id: learning-service
             uri: lb://learning-service
             predicates:
