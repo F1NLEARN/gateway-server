@@ -4,12 +4,26 @@ server:
 spring:
   application:
     name: gateway-server
+  profiles:
+    active: local
+    group:
+      docker: "kafka,topics"
   config:
-    import: optional:configserver:http://finlearn-config-server:8888
+    import: optional:configserver:http://localhost:8888
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+      - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration
+  data:
+    redis:
+      host: localhost
+      port: 6379
   cloud:
     gateway:
-      mvc:
-        routes:
+      server:
+        webmvc:
+          routes:
           - id: user-service
             uri: lb://user-service
             predicates:
@@ -34,10 +48,10 @@ spring:
             uri: lb://achievement-service
             predicates:
               - Path=/api/achievements/**
-          - id: discovery-service
-            uri: lb://discovery-service
+          - id: ranking-service
+            uri: lb://ranking-service
             predicates:
-              - Path=/api/discovery/**
+              - Path=/api/ranking/**
 
 eureka:
   instance:
@@ -46,35 +60,4 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://finlearn-eureka:8761/eureka/
-
-#management:
-#  endpoints:
-#    web:
-#      exposure:
-#        include: health,info,refresh
-#  endpoint:
-#    health:
-#      show-details: always
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info,refresh,prometheus
-  endpoint:
-    health:
-      show-details: always
-
-  prometheus:
-    metrics:
-      export:
-        enabled: true
-
-  tracing:
-    sampling:
-      probability: 1.0
-
-  zipkin:
-    tracing:
-      endpoint: http://host.docker.internal:9411/api/v2/spans
+      defaultZone: http://localhost:8761/eureka/
