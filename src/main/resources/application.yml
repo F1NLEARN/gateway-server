@@ -31,27 +31,27 @@ spring:
           - id: learning-service
             uri: lb://learning-service
             predicates:
-              - Path=/api/learning/**
+              - Path=/api/v1/learning/**
           - id: quiz-service
             uri: lb://quiz-service
             predicates:
-              - Path=/api/quiz/**
+              - Path=/api/v1/quiz/**
           - id: simulation-service
             uri: lb://simulation-service
             predicates:
-              - Path=/api/simulation/**
+              - Path=/api/v1/investments/**,/api/v1/holdings/**,/api/v1/trade-histories/**,/api/v1/analyses/**
           - id: season-service
             uri: lb://season-service
             predicates:
-              - Path=/api/seasons/**
+              - Path=/api/v1/seasons/**
           - id: achievement-service
             uri: lb://achievement-service
             predicates:
-              - Path=/api/achievements/**
+              - Path=/api/v1/achievements/**
           - id: ranking-service
             uri: lb://ranking-service
             predicates:
-              - Path=/api/ranking/**
+              - Path=/api/v1/rankings/**
           - id: user-service-api-docs
             uri: lb://user-service
             predicates:
