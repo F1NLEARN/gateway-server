@@ -52,6 +52,66 @@ spring:
             uri: lb://ranking-service
             predicates:
               - Path=/api/ranking/**
+          - id: user-service-api-docs
+            uri: lb://user-service
+            predicates:
+              - Path=/v3/api-docs/user-service
+            filters:
+              - RewritePath=/v3/api-docs/user-service, /v3/api-docs
+          - id: learning-service-api-docs
+            uri: lb://learning-service
+            predicates:
+              - Path=/v3/api-docs/learning-service
+            filters:
+              - RewritePath=/v3/api-docs/learning-service, /v3/api-docs
+          - id: quiz-service-api-docs
+            uri: lb://quiz-service
+            predicates:
+              - Path=/v3/api-docs/quiz-service
+            filters:
+              - RewritePath=/v3/api-docs/quiz-service, /v3/api-docs
+          - id: simulation-service-api-docs
+            uri: lb://simulation-service
+            predicates:
+              - Path=/v3/api-docs/simulation-service
+            filters:
+              - RewritePath=/v3/api-docs/simulation-service, /v3/api-docs
+          - id: season-service-api-docs
+            uri: lb://season-service
+            predicates:
+              - Path=/v3/api-docs/season-service
+            filters:
+              - RewritePath=/v3/api-docs/season-service, /v3/api-docs
+          - id: achievement-service-api-docs
+            uri: lb://achievement-service
+            predicates:
+              - Path=/v3/api-docs/achievement-service
+            filters:
+              - RewritePath=/v3/api-docs/achievement-service, /v3/api-docs
+          - id: ranking-service-api-docs
+            uri: lb://ranking-service
+            predicates:
+              - Path=/v3/api-docs/ranking-service
+            filters:
+              - RewritePath=/v3/api-docs/ranking-service, /v3/api-docs
+
+springdoc:
+  swagger-ui:
+    urls:
+      - name: user-service
+        url: /v3/api-docs/user-service
+      - name: learning-service
+        url: /v3/api-docs/learning-service
+      - name: quiz-service
+        url: /v3/api-docs/quiz-service
+      - name: simulation-service
+        url: /v3/api-docs/simulation-service
+      - name: season-service
+        url: /v3/api-docs/season-service
+      - name: achievement-service
+        url: /v3/api-docs/achievement-service
+      - name: ranking-service
+        url: /v3/api-docs/ranking-service
 
 eureka:
   instance:
